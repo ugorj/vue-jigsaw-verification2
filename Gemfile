@@ -36,4 +36,25 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+# Use debugger
+# gem 'debugger', group: [:development, :test]
+# Use postgresql as the database for Active Record
+
+gem 'rails_12factor', group: :production
+
+group :development, :test do
+  gem 'sqlite3'
+end
+group :production do
+  gem 'pg'
+end
+
+group :production do
+  gem 'thin'
+end
