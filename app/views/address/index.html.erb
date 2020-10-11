@@ -1,0 +1,11 @@
+
+<% if @addresses!=''%>
+	<h1>Please Choose Your Address</h1>
+	<% @addresses.each do |w| %>
+		<%= "Address: " + w.address.to_s + " Balance: " + (w.balance.to_f/(10**8)).to_s %>
+		<%= link_to "choose", calculator_index_url(address: w.address, balance: w.balance) %>
+		<br />
+		<br />
+	<% end %>
+<% end %>
+
