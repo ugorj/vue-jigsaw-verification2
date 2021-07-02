@@ -8,4 +8,6 @@ jQuery.parseJSON = function( data ) {
 	return JSON.parse( data + "" );
 };
 
-return jQuery.parseJSO
+return jQuery.parseJSON;
+
+});
