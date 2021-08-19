@@ -134,4 +134,9 @@ jQuery.fn.extend({
 			}
 		}
 		resolve();
-		
+		return defer.promise( obj );
+	}
+});
+
+return jQuery;
+});
