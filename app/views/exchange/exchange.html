@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bitcoin</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+
+   function GetCurrency()
+   {
+    $.get("http://beepay.bitcoingroup.com.au/currency/index.json", function(data) {
+        $("#aud").text(data["AUD"]["last"]);
+    });
+    }
+
+  $(document).ready(function() {
+      setInterval(GetCurrency , 11000);
+  });
+
+  
+  </script>
+</head>
+<body>
+
+<p id = "aud"></p>
+
+</body>
+</html>

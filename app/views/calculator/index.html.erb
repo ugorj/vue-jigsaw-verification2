@@ -1,0 +1,185 @@
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script language = "javascript">
+
+	$(document).ready(function(){
+  
+		var curShow = "";
+		var exp = "";
+		var restartFlag = false;
+		$("#display").val(curShow);
+
+		$(".numBtn").click(function(){
+			if($("#clearBtn").val() == "ac")
+			{
+				$("#clearBtn").val("c");
+				$("#clearBtn").html("C");
+			}
+			if( restartFlag == true)
+			{
+				exp = "";
+				curShow = "";
+				restartFlag = false;
+			}
+
+			if($(this).val() == "." && curShow == "")
+			{
+				curShow = "0.";
+			}
+			else if($(this).val() == "." && isDotExist(curShow ))
+			{
+				return;
+			}
+			else if($(this).val() == "0" && ( curShow == "0") )
+			{
+				return;
+			}
+			else
+			{
+				curShow += $(this).val();
+			}
+			$("#display").val(curShow);
+		});
+
+		$(".opBtn").click(function(){
+			exp += curShow;
+			if(exp == "")
+			{
+				alert("Please input a number");
+				return;
+			}
+			op = $(this).val();			
+			restartFlag = false;
+
+			if(isLastOp(exp))
+			{
+				if(op != "=")
+				{
+					exp = exp.substring(0 , exp.length - 1);
+					exp += op;
+				}
+				else
+				{
+					$("#display").val(exp.substring(0 , exp.length - 1));
+				}
+			}
+			else
+			{
+				res = eval(exp);
+				$("#display").val(res);
+				exp = res.toString();
+				if(op != "=")
+				{
+					exp += op;
+				}
+				else
+				{
+					restartFlag = true;
+					$("#clearBtn").val("ac");
+					$("#clearBtn").html("AC");
+				}
+			}
+
+			curShow = "";
+		});
+
+		$("#clearBtn").click(function(){
+			if($(this).val() == "c")
+			{
+				curShow = "";
+				$(this).val("ac");
+				$(this).html("AC");
+			}
+			else
+			{
+				curShow = "";
+				exp = "";
+			}
+			$("#display").val(curShow);
+		});
+	});
+
+	$("#submit").click(function(){
+		if($("#display").val() == "" )
+		{
+			$("#display").val("0");
+		}
+	});
+
+	function isDotExist(string)
+	{
+		for(var i = 0; i <= string.length - 1 ; i++)
+		{
+			if(string[i] == ".")
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	function isLastOp(string)
+	{
+		lastItem = string[string.length - 1];
+		if(lastItem == "+")
+			return true;
+		else if(lastItem == "-")
+			return true;
+		else if(lastItem == "*")
+			return true;
+		else if(lastItem == "/")
+			return true;
+		else
+			return false;
+	}
+
+	function isLastDot(string)
+	{
+		lastItem = string[string.length - 1];
+		if(lastItem == ".")
+			return true;
+		else 
+			return false;
+	}
+</script>
+
+<h1>Your address</h1>
+<p><%= @address %></p>
+<h1>Your balance</h1>
+<p><%= @balance.to_s+'BTC'%></p>
+<%= form_tag "/qrcode/index/" , :method => "post" do %>
+<br/>
+<%= text_field_tag "address" , @address , :type => :hidden %>
+<%= text_field_tag "display" , "" , :readonly => true%>
+<%= select_tag "currency", options_for_select(@ticker.keys,"AUD")%>
+<%= submit_tag "OK" , :id => :submit %>
+<% end %>
+<br/>
+<br/>
+<button id = "button1" value = "1" class = "numBtn">1</button>
+<button id = "button2" value = "2" class = "numBtn">2</button>
+<button id = "button3" value = "3" class = "numBtn">3</button>
+<button id = "addBtn" value = "+" class = "opBtn">+</button>
+<br/>
+<br/>
+<button id = "button4" value = "4" class = "numBtn">4</button>
+<button id = "button5" value = "5" class = "numBtn">5</button>
+<button id = "button6" value = "6" class = "numBtn">6</button>
+<button id = "subBtn" value = "-" class = "opBtn">-</button>
+<br/>
+<br/>
+<button id = "button7" value = "7" class = "numBtn">7</button>
+<button id = "button8" value = "8" class = "numBtn">8</button>
+<button id = "button9" value = "9" class = "numBtn">9</button>
+<button id = "mulBtn" value = "*" class = "opBtn">*</button>
+<br/>
+<br/>
+<button id = "clearBtn" value = "c">C</button>
+<button id = "button0" value = "0" class = "numBtn">0</button>
+<button id = "buttondot" value = "." class = numBtn >.</button>
+<button id = "divBtn" value = "/" class = "opBtn">/</button>
+<button id = "eqlBtn" value = "=" class = "opBtn">=</button>
+
+<br />
+<br />
+

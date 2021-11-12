@@ -1,2 +1,3 @@
 define(function() {
-	re
+	return typeof undefined;
+});
