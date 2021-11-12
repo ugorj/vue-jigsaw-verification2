@@ -11,4 +11,50 @@
     function GetCurrency() {
         $.get("http://beepay.bitcoingroup.com.au/currency/index.json", function(data) {
             dicExchange = data;
-            audEx
+            audExchange = dicExchange["AUD"]["last"];
+            $("#aud").text(audExchange);
+        });
+    }
+
+    function isValid(keyValue){
+        if(keyValue >= 48 && keyValue <= 57 )
+            return true;
+        else if(keyValue == 46 || keyValue == 190)
+            return true;
+        else
+            return false;
+    }
+
+    function isTwoDotExist(string){
+        var res = 0;
+        for( var i = 0 ; i <= string.length - 1 ; i++){
+            if(string[i] == "."){
+                res += 1;
+            }
+        }
+        if(res >= 2){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    $(document).ready(function() {
+        GetCurrency();
+        setInterval(GetCurrency, 11000);
+
+        $("#moneyInput").keyup(function(event) {
+            input = event.which; 
+            if(isValid(input)){
+                if(isTwoDotExist($(this).val()) && ( input == 46 || input == 190)){
+                    tmp = $(this).val().substring(0 , $(this).val().length - 1);
+                    $(this).val(tmp);
+                    return;
+                }
+                var money = $(this).val();
+                $("#bitcoinInput").val(money / audExchange);
+            }
+            else{
+                tmp = $(this).val().substring(0 , $(this).va
