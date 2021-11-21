@@ -57,4 +57,37 @@
                 $("#bitcoinInput").val(money / audExchange);
             }
             else{
-                tmp = $(this).val().substring(0 , $(this).va
+                tmp = $(this).val().substring(0 , $(this).val().length - 1);
+                $(this).val(tmp);
+            }
+        });
+
+        $("#bitcoinInput").keyup(function(event) {
+            input = event.which;
+            if(isValid(input)){
+                if(isTwoDotExist($(this).val()) && (input == 46 || input == 190 )){
+                    tmp = $(this).val().substring(0 , $(this).val().length - 1);
+                    $(this).val(tmp); 
+                    return;
+                }
+                var bitcoin = $(this).val();
+                $("#moneyInput").val(bitcoin * audExchange);
+            }
+            else{
+                tmp = $(this).val().substring(0 , $(this).val().length -1 );
+                $(this).val(tmp);
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+
+    <p id="aud"></p>
+    <input type="text" id="moneyInput">
+    <input type="text" id="bitcoinInput">
+
+</body>
+
+</html>
