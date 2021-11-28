@@ -1,0 +1,16 @@
+<h1>Sign Up</h1>
+<%= form_tag signup_show_path, method: :post do %>
+	<%= label_tag('Email') %>
+	<%= text_field_tag :email, params[:email] %>
+    <br />
+    <br />
+	<%= label_tag('Password') %>
+	<%= text_field_tag :password, params[:password] %>
+    <br />
+    <br />
+    <%= label_tag('Confirm Password') %>
+	<%= text_field_tag :confirm_password, params[:confirm_password] %>
+    <br />
+    <br />
+	<%= submit_tag "Sign Up" %>
+<% end %>

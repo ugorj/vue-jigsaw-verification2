@@ -1,0 +1,30 @@
+
+<p>please check your email</p> 
+<h1><%= @email%></h1>
+<html>
+<SCRIPT language="javascript"> 
+var spantime = 10;
+var endflag = false;
+function cal()
+{
+    if (spantime == 0)
+    { 
+        window.location.href= '/';
+    }
+    else
+    {
+        spantime --;
+        str = spantime + "s";
+        document.getElementById("pad").innerHTML = str;
+    }
+}
+window.onload = function()
+{
+    setInterval(cal, 1000);
+}
+</SCRIPT>  
+</head>
+<h1>
+left:<span id="pad"></span>
+</h1>
+</html>

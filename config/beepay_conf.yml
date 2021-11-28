@@ -1,0 +1,12 @@
+defaults: &defaults
+  blockchain_userid: "4c95617c-6274-4732-acdf-6ecc2b03fc28"
+  blockchain_userpass: "tanyiming911114"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

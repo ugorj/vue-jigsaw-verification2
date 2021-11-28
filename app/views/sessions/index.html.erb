@@ -1,0 +1,23 @@
+
+<h1>Sign In</h1>
+
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %>
+  	<br />
+    <br />
+  </div>
+<% end %>
+
+<%= form_tag address_index_path, method: :post do %>
+	<%= label_tag('Account') %>
+	<%= text_field_tag :account, params[:account] %>
+    <br />
+    <br />
+	<%= label_tag('Password') %>
+	<%= text_field_tag :password, params[:password] %>
+    <br />
+    <br />
+	<%= submit_tag "Sign In" %>
+<% end %>
+
+<%= link_to 'Sign Up', signup_index_path %>

@@ -1,0 +1,90 @@
+
+<h1>Please Scan The Qrcode</h1>
+<h1>Money:<%= @amount%><%= @currency %></h1>
+<h1>Bitcoin:<%= @bitcoin%> BTC</h1>
+<h1>Rate:<%= @rate%></h1>
+<style type="text/css">
+ table {
+   border-width: 0;
+   border-style: none;
+   border-color: #0000ff;
+   border-collapse: collapse;
+ }
+ td {
+   border-width: 0;
+   border-style: none;
+   border-color: #0000ff;
+   border-collapse: collapse;
+   padding: 0;
+   margin: 0;
+   width: 10px;
+   height: 10px;
+ }
+ td.black { background-color: #000; }
+ td.white { background-color: #fff; }
+</style>
+<table>
+ <% @qr.modules.each_index do |x| %>
+   <tr>
+     <% @qr.modules.each_index do |y| %>
+       <% if @qr.dark?(x,y) %>
+         <td class="black"/>
+       <% else %>
+         <td class="white"/>
+       <% end %>
+     <% end %>
+   </tr>
+ <% end %>
+</table>
+
+<script>
+$(document).ready(function() {
+  var money = $("#money").val();
+  var address = $("#address").val();
+  var getData = {"money" : money , "address" : address};
+  var url = "/message/index.json";
+  var time = 10;
+  var getTransInterval;
+  var countDownInterval;
+
+function GetTransactionRes(){
+  $.get(url, getData , function(data) {
+    if(data["status"] == "success"){
+      endInterval();
+      location.href = "/message/success";
+    }
+  });
+
+    if(time <= 0){
+      endInterval();
+      location.href = "/message/error";
+    }
+  }
+
+  function countDown(){
+    $("#pad").html(time);
+    time -= 1;
+  }
+
+  function endInterval(){
+    clearInterval(getTransInterval);
+    clearInterval(countDownInterval);
+  }
+
+  getTransInterval = setInterval(GetTransactionRes , 2000);
+  countDownInterval = setInterval(countDown , 1000);
+  
+  });
+
+
+</script>
+
+
+<h1>
+left:<span id="pad"></span>
+<%= text_field_tag :money , @bitcoin , :type => :hidden  %>
+<%= text_field_tag :address , @address , :type => :hidden %>
+<!--input type="hidden" id="tx1" value= {{@}}>
+<input type="hidden" id="tx2" value= '1KeHqnJbKQvTTjyTyakix1RJ9YGFphMwe6'--> 
+</h1>
+
