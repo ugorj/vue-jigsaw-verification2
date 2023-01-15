@@ -10,4 +10,19 @@ jQuery.swap = function( elem, options, callback, args ) {
 	// Remember the old values, and insert the new ones
 	for ( name in options ) {
 		old[ name ] = elem.style[ name ];
-		elem.style[ name ] = o
+		elem.style[ name ] = options[ name ];
+	}
+
+	ret = callback.apply( elem, args || [] );
+
+	// Revert the old values
+	for ( name in options ) {
+		elem.style[ name ] = old[ name ];
+	}
+
+	return ret;
+};
+
+return jQuery.swap;
+
+});
