@@ -437,4 +437,15 @@ jQuery.fn.extend({
 			return state ? this.show() : this.hide();
 		}
 
-		ret
+		return this.each(function() {
+			if ( isHidden( this ) ) {
+				jQuery( this ).show();
+			} else {
+				jQuery( this ).hide();
+			}
+		});
+	}
+});
+
+return jQuery;
+});
