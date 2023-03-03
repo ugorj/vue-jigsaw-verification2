@@ -26,4 +26,11 @@ define([
 	"./effects/animatedSelector",
 	"./offset",
 	"./dimensions",
-	"./deprecated"
+	"./deprecated",
+	"./exports/amd",
+	"./exports/global"
+], function( jQuery ) {
+
+return jQuery;
+
+});
